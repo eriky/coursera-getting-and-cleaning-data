@@ -1,12 +1,11 @@
 setwd("~/datascience/3. Obtaining Data/Project/")
-nrows = 10000000000000
-training = read.csv("UCI HAR Dataset/train/X_train.txt", sep="", nrows = nrows, header=FALSE)
-training[,562] = read.csv("UCI HAR Dataset/train/Y_train.txt", sep="", nrows = nrows, header=FALSE)
-training[,563] = read.csv("UCI HAR Dataset/train/subject_train.txt", sep="", nrows = nrows, header=FALSE)
+training = read.csv("UCI HAR Dataset/train/X_train.txt", sep="", header=FALSE)
+training[,562] = read.csv("UCI HAR Dataset/train/Y_train.txt", sep="", header=FALSE)
+training[,563] = read.csv("UCI HAR Dataset/train/subject_train.txt", sep="", header=FALSE)
 
-testing = read.csv("UCI HAR Dataset/test/X_test.txt", sep="", nrows = nrows, header=FALSE)
-testing[,562] = read.csv("UCI HAR Dataset/test/Y_test.txt", sep="", nrows = nrows, header=FALSE)
-testing[,563] = read.csv("UCI HAR Dataset/test/subject_test.txt", sep="", nrows = nrows, header=FALSE)
+testing = read.csv("UCI HAR Dataset/test/X_test.txt", sep="", header=FALSE)
+testing[,562] = read.csv("UCI HAR Dataset/test/Y_test.txt", sep="", header=FALSE)
+testing[,563] = read.csv("UCI HAR Dataset/test/subject_test.txt", sep="", header=FALSE)
 
 activityLabels = read.csv("UCI HAR Dataset/activity_labels.txt", sep="", header=FALSE)
 
@@ -41,4 +40,7 @@ allData$activity <- as.factor(allData$activity)
 allData$subject <- as.factor(allData$subject)
 
 tidy = aggregate(allData,by=list(activity = allData$activity, subject=allData$subject), mean)
+# Remove the subject and activity column, since a mean of those has no use
+tidy[,90] = NULL
+tidy[,89] = NULL
 write.table(tidy, "tidy.txt", sep="\t")
