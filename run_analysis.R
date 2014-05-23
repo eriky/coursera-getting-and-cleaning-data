@@ -39,7 +39,7 @@ for (currentActivityLabel in activityLabels$V2) {
 allData$activity <- as.factor(allData$activity)
 allData$subject <- as.factor(allData$subject)
 
-tidy = aggregate(allData,by=list(activity = allData$activity, subject=allData$subject), mean)
+tidy = aggregate(allData, by=list(activity = allData$activity, subject=allData$subject), mean)
 # Remove the subject and activity column, since a mean of those has no use
 tidy[,90] = NULL
 tidy[,89] = NULL
